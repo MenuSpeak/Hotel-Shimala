@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hotel Shimla</title>
+  <title>Hotel Jabardast</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -23,8 +23,7 @@
       --ff-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
 
-
-
+    * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -231,12 +230,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
     }
 
     .price {
       font-weight: 700;
       font-size: 16px;
       color: var(--gold2);
+      flex-shrink: 0;
     }
 
     .tags {
@@ -254,18 +255,98 @@
       background: transparent;
     }
 
+    /* Add to Cart Button - Width Kam Aur Animation */
     .btn-primary {
       background: linear-gradient(90deg, var(--gold1), var(--gold2));
       border: none;
-      padding: 10px 16px;
-      border-radius: 10px;
+      padding: 8px 16px;
+      border-radius: 8px;
       color: #0b0b0d;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.12);
-      font-size: 14px;
-      width: 100%;
-      margin-top: 8px;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+      font-size: 13px;
+      width: auto;
+      min-width: 100px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0) scale(0.95);
+    }
+
+    /* Button Animation Effects */
+    .btn-primary.adding {
+      animation: addPulse 0.6s ease;
+    }
+
+    .btn-primary.added {
+      background: linear-gradient(90deg, #10b981, #059669);
+      animation: successPulse 0.8s ease;
+    }
+
+    @keyframes addPulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+      }
+    }
+
+    @keyframes successPulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
+      }
+      25% {
+        transform: scale(1.08);
+        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+      }
+      50% {
+        transform: scale(0.95);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+      }
+      75% {
+        transform: scale(1.03);
+        box-shadow: 0 7px 25px rgba(16, 185, 129, 0.35);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
+      }
+    }
+
+    /* Ripple Effect */
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease;
+    }
+
+    .btn-primary:active::before {
+      width: 100px;
+      height: 100px;
     }
 
     /* Gallery Section */
@@ -604,6 +685,37 @@
       font-size: 16px;
     }
 
+    /* Table Number Input */
+    .table-number-section {
+      margin-bottom: 20px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .table-number-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--gold2);
+    }
+
+    .table-number-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: white;
+      font-size: 16px;
+    }
+
+    .table-number-input:focus {
+      outline: none;
+      border-color: var(--gold2);
+    }
+
     /* Print Button */
     .print-container {
       display: flex;
@@ -631,20 +743,19 @@
     }
 
     .title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: flex-start;
-}
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-start;
+    }
 
-.site-logo {
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
-  margin-left: 10px;
-  border-radius: 8px; /* make corners slightly round */
-}
-
+    .site-logo {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      margin-left: 10px;
+      border-radius: 8px; /* make corners slightly round */
+    }
 
     /* Tablet and Desktop Styles */
     @media (min-width: 768px) {
@@ -727,8 +838,8 @@
       <div class="menu-head">
         <div>
           <h2 class="title">
-            Hotel Shimla
-          <img src="logo.png" alt="Logo" class="site-logo">
+            Hotel Jabardast
+          <img src="logo.PNG" alt="Logo" class="site-logo">
           </h2>
 
           <div class="subtitle"> • Veg — Non Veg</div>
@@ -746,42 +857,17 @@
 
           <div class="tabs" role="tablist">
             <button class="tab active" data-cat="all">All</button>
-            <button class="tab" data-cat="Special Thali">Special Thali</button>
+            <button class="tab" data-cat="Startar">Startar</button>
             <button class="tab" data-cat="Veg">Veg</button>
-            <button class="tab" data-cat="Rice">Rice</button>
-            <button class="tab" data-cat="Breads">Breads</button>
-            <button class="tab" data-cat="Veg Starters">Veg Starters</button>
-            <button class="tab" data-cat="Non-Veg Starters">Non-Veg Starters</button>
-            <button class="tab" data-cat="Kebabs">Kebabs</button>
-            <button class="tab" data-cat="Veg Curry">Veg Curry</button>
-            <button class="tab" data-cat="Dal">Dal</button>
-            <button class="tab" data-cat="Handi Specials">Handi Specials</button>
-            <button class="tab" data-cat="Special Thali">Special Thali</button>
-            <button class="tab" data-cat="Plate System">Plate System</button>
-            <!-- <button class="tab" data-cat="Pakoda & Snacks">Pakoda & Snacks</button>
-            <button class="tab" data-cat="Soups">Soups</button>
-            <button class="tab" data-cat="Chinese Rice / Noodles">Chinese Rice / Noodles</button>
-            <button class="tab" data-cat="Veg Main Course">Veg Main Course</button>
-            <button class="tab" data-cat="Handi">Handi</button>
-            <button class="tab" data-cat="Dal">Rice</button> 
-            <button class="tab" data-cat="Roti / Bread">Roti / Bread</button>
-            <button class="tab" data-cat="Veg Biryani">Veg Biryani</button>
-            <button class="tab" data-cat="Raita">Raita</button>
-            <button class="tab" data-cat="Tandoor Special">Tandoor Special</button>
-            <button class="tab" data-cat="Roti">Roti</button> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <button class="tab" data-cat="Veg Special">Veg Special</button>
+            <button class="tab" data-cat="Chicken Special">Chicken Special</button>
+            <button class="tab" data-cat="Mutton Special">Mutton Special</button>
+            <button class="tab" data-cat="Extra">Extra</button>
+            <button class="tab" data-cat="रोटी">Roti</button>
+            <button class="tab" data-cat="ऑर्डर प्रमाण">ऑर्डर प्रमाण</button>
+            <button class="tab" data-cat="राईस">राईस</button>
+            <button class="tab" data-cat="बिर्याणी">बिर्याणी</button>
+            <button class="tab" data-cat="थाळी (अनलिमिटेड)">थाळी (अनलिमिटेड)</button>
           </div>
         </div>
       </div>
@@ -816,6 +902,12 @@
         <button class="close-cart" id="closeCart">&times;</button>
       </div>
       
+      <!-- Table Number Input Section -->
+      <div class="table-number-section">
+        <label for="tableNumber" class="table-number-label">Enter Table Number</label>
+        <input type="text" id="tableNumber" class="table-number-input" placeholder="e.g., Table 5" />
+      </div>
+      
       <div class="cart-items" id="cartItems">
         <!-- Cart items will be inserted here -->
         <div class="cart-empty" id="cartEmpty">Your cart is empty</div>
@@ -840,8 +932,8 @@
 
   <script>
     const data = [
-
-// Special Thali Menu (स्पेशल थाळी मेनू)
+     
+  // Special Thali Menu (स्पेशल थाळी मेनू)
 {id:601, cat:'Special Thali', name:'स्पेशल मटण ताट (Special Mutton Thali)', desc:'1 प्लेट मटण मालवणी, 1 प्लेट ग्रीन मटण, 1 प्लेट खीमा, 2 भाकरी किंवा चपाती, रोटी, तांबडा-पांढरा रस्सा, 1 प्लेट जिरा राईस.', price:'₹300', tags:['Mutton','Thali','NonVeg'], img:'img/special-mutton-thali.jpg'},
 
 {id:602, cat:'Special Thali', name:'स्पेशल चिकन ताट (Special Chicken Thali)', desc:'1 प्लेट चिकन मालवणी, 1 प्लेट ग्रीन चिकन, 1 अंडाकरी, 2 भाकरी किंवा चपाती, रोटी, तांबडा-पांढरा रस्सा, 1 प्लेट जिरा राईस.', price:'₹200', tags:['Chicken','Thali','NonVeg'], img:'img/special-chicken-thali.jpg'},
@@ -1029,7 +1121,7 @@
 {id:903, cat:'Plate System', name:'मटण मसाला (Mutton Masala Plate)', desc:'Single serving mutton masala', price:'₹220', tags:['Mutton','Masala','Plate'], img:'img/mutton-masala-plate.jpg'},
 {id:904, cat:'Plate System', name:'मटण फ्राय (Mutton Fry Plate)', desc:'Single serving mutton fry', price:'₹200', tags:['Mutton','Fry','Plate'], img:'img/mutton-fry-plate.jpg'},
 {id:905, cat:'Plate System', name:'मटण खर्डा (Mutton Kharda Plate)', desc:'Single serving mutton kharda', price:'₹230', tags:['Mutton','Kharda','Plate'], img:'img/mutton-kharda-plate.jpg'},
-{id:906, cat:'Plate System', name:'मटण लोणचं (Mutton Loncha Plate)', desc:'Single serving mutton loncha', price:'₹240', tags:['Mutton','Loncha','Plate'], img:'img/mutton loncha plate.jpg'},
+{id:906, cat:'Plate System', name:'मटण लोणचं (Mutton Loncha Plate)', desc:'Single serving mutton loncha', price:'₹240', tags:['Mutton','Loncha','Plate'], img:'img/mutton-loncha-plate.jpg'},
 {id:907, cat:'Plate System', name:'मटण खिमा (Mutton Keema Plate)', desc:'Single serving mutton keema', price:'₹170', tags:['Mutton','Keema','Plate'], img:'img/mutton-keema-plate.jpg'},
 {id:908, cat:'Plate System', name:'चिकन मालवणी (Chicken Malvani Plate)', desc:'Single serving chicken malvani', price:'₹150', tags:['Chicken','Malvani','Plate'], img:'img/chicken-malvani-plate.jpg'},
 {id:909, cat:'Plate System', name:'ग्रीन चिकन (Green Chicken Plate)', desc:'Single serving green chicken', price:'₹150', tags:['Chicken','Green','Plate'], img:'img/green-chicken-plate.jpg'},
@@ -1040,54 +1132,32 @@
 {id:914, cat:'Plate System', name:'अंडा बुर्जी (Egg Bhurji Plate)', desc:'Single serving scrambled eggs', price:'₹70', tags:['Egg','Bhurji','Plate'], img:'img/egg-bhurji-plate.jpg'},
 {id:915, cat:'Plate System', name:'अंडा ऑमलेट (Egg Omelette)', desc:'Simple egg omelette', price:'₹70', tags:['Egg','Omelette'], img:'img/egg-omelette.jpg'},
 {id:916, cat:'Plate System', name:'अंडा बॉईल (Boiled Egg)', desc:'Simple boiled egg', price:'₹30', tags:['Egg','Boiled'], img:'img/boiled-egg.jpg'},
-
-//veg 
-
-// {id:1001, cat:'Veg', name:'पनीर मसाला', desc:'Spicy paneer curry', price:'₹180', tags:['Paneer','Curry','Veg'], img:'img/paneer-masala.jpg'},
-// {id:1002, cat:'Veg', name:'पनीर काजू मसाला', desc:'Paneer kaju masala', price:'₹200', tags:['Paneer','Kaju','Veg'], img:'img/paneer-kaju-masala.jpg'},
-// {id:1003, cat:'Veg', name:'पनीर चिंगारी', desc:'Paneer Chingari', price:'₹220', tags:['Paneer','Chingari','Veg'], img:'img/paneer-chingari.jpg'},
-// {id:1004, cat:'Veg', name:'पनीर टिकका', desc:'Paneer Tikka', price:'₹220', tags:['Paneer','Tikka','Veg'], img:'img/paneer-tikka.jpg'},
-// {id:1005, cat:'Veg', name:'पनीर लबाबदार', desc:'Paneer Lababdar', price:'₹220', tags:['Paneer','Lababdar','Veg'], img:'img/paneer-lababdar.jpg'},
-// {id:1006, cat:'Veg', name:'पनीर बटर मसाला', desc:'Paneer Butter Masala', price:'₹200', tags:['Paneer','Butter','Masala','Veg'], img:'img/paneer-butter-masala.jpg'},
-// {id:1007, cat:'Veg', name:'पनीर मटर मसाला', desc:'Paneer Matar Masala', price:'₹190', tags:['Paneer','Matar','Masala','Veg'], img:'img/paneer-matar-masala.jpg'},
-// {id:1008, cat:'Veg', name:'पनीर कड़ाई', desc:'Paneer Kadai', price:'₹200', tags:['Paneer','Kadai','Veg'], img:'img/paneer-kadai.jpg'},
-// {id:1009, cat:'Veg', name:'पनीर भुर्जी', desc:'Paneer Bhurji', price:'₹190', tags:['Paneer','Bhurji','Veg'], img:'img/paneer-bhurji.jpg'},
-// {id:1010, cat:'Veg', name:'पालक पनीर', desc:'Palak Paneer', price:'₹200', tags:['Paneer','Palak','Veg'], img:'img/palak-paneer.jpg'},
-// {id:1011, cat:'Veg', name:'काजू मसाला', desc:'Kaju Masala', price:'₹200', tags:['Kaju','Masala','Veg'], img:'img/kaju-masala.jpg'},
-// {id:1012, cat:'Veg', name:'काजू कुरमी', desc:'Kaju Kurmi', price:'₹220', tags:['Kaju','Kurmi','Veg'], img:'img/kaju-kurmi.jpg'},
-// {id:1013, cat:'Veg', name:'मिक्स व्हेज', desc:'Mixed Vegetables Curry', price:'₹160', tags:['Mix Veg','Curry','Veg'], img:'img/mix-veg.jpg'},
-
-
-];
+  ];
 
     // Cart functionality
     let cart = [];
     const cartButton = document.getElementById('cartButton');
-    const cartCount = document.getElementById('cartCount');
     const cartModal = document.getElementById('cartModal');
     const closeCart = document.getElementById('closeCart');
     const cartItems = document.getElementById('cartItems');
     const cartEmpty = document.getElementById('cartEmpty');
+    const cartCount = document.getElementById('cartCount');
     const cartTotal = document.getElementById('cartTotal');
     const clearCart = document.getElementById('clearCart');
     const whatsappOrder = document.getElementById('whatsappOrder');
+    const tableNumberInput = document.getElementById('tableNumber');
 
-    // Initialize cart from localStorage if available
-    function initCart() {
-      const savedCart = localStorage.getItem('hotelMaiCart');
-      if (savedCart) {
-        cart = JSON.parse(savedCart);
-        updateCartUI();
-      }
-    }
+    // Toggle cart modal
+    cartButton.addEventListener('click', () => {
+      cartModal.classList.add('open');
+    });
 
-    // Save cart to localStorage
-    function saveCart() {
-      localStorage.setItem('hotelMaiCart', JSON.stringify(cart));
-    }
+    closeCart.addEventListener('click', () => {
+      cartModal.classList.remove('open');
+    });
 
-    // Add item to cart
-    function addItemToCart(item) {
+    // Add to cart function with animation
+    function addToCart(item, button) {
       const existingItem = cart.find(cartItem => cartItem.id === item.id);
       
       if (existingItem) {
@@ -1101,24 +1171,31 @@
         });
       }
       
-      saveCart();
-      updateCartUI();
+      updateCart();
       
-      // Show confirmation animation
-      cartCount.style.transform = 'scale(1.5)';
+      // Animation effect
+      button.classList.add('adding');
+      button.innerHTML = 'Adding...';
+      
       setTimeout(() => {
-        cartCount.style.transform = 'scale(1)';
-      }, 300);
+        button.classList.remove('adding');
+        button.classList.add('added');
+        button.innerHTML = '✓ Added';
+        
+        setTimeout(() => {
+          button.classList.remove('added');
+          button.innerHTML = 'Add to Cart';
+        }, 1000);
+      }, 500);
     }
 
-    // Remove item from cart
+    // Remove from cart function
     function removeFromCart(itemId) {
       cart = cart.filter(item => item.id !== itemId);
-      saveCart();
-      updateCartUI();
+      updateCart();
     }
 
-    // Update item quantity in cart
+    // Update quantity function
     function updateQuantity(itemId, change) {
       const item = cart.find(item => item.id === itemId);
       
@@ -1128,168 +1205,172 @@
         if (item.quantity <= 0) {
           removeFromCart(itemId);
         } else {
-          saveCart();
-          updateCartUI();
+          updateCart();
         }
       }
     }
 
-    // Calculate total price
-    function calculateTotal() {
-      return cart.reduce((total, item) => {
-        const price = parseInt(item.price.replace('₹', '').replace(',', ''));
-        return total + (price * item.quantity);
-      }, 0);
-    }
-
-    // Update cart UI
-    function updateCartUI() {
+    // Update cart display
+    function updateCart() {
       // Update cart count
       const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
       cartCount.textContent = totalItems;
       
-      // Show/hide empty cart message
+      // Update cart items
       if (cart.length === 0) {
         cartEmpty.style.display = 'block';
+        cartItems.innerHTML = '';
       } else {
         cartEmpty.style.display = 'none';
+        
+        let itemsHTML = '';
+        let totalAmount = 0;
+        
+        cart.forEach(item => {
+          const price = parseInt(item.price.replace('₹', ''));
+          const itemTotal = price * item.quantity;
+          totalAmount += itemTotal;
+          
+          itemsHTML += `
+            <div class="cart-item">
+              <div class="item-info">
+                <div class="item-name">${item.name}</div>
+                <div class="item-price">${item.price}</div>
+              </div>
+              <div class="item-quantity">
+                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                <span class="quantity">${item.quantity}</span>
+                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                <button class="remove-item" onclick="removeFromCart(${item.id})">×</button>
+              </div>
+            </div>
+          `;
+        });
+        
+        cartItems.innerHTML = itemsHTML;
+        cartTotal.textContent = `₹${totalAmount}`;
       }
-      
-      // Update cart items
-      cartItems.innerHTML = '';
-      cart.forEach(item => {
-        const price = parseInt(item.price.replace('₹', '').replace(',', ''));
-        const itemElement = document.createElement('div');
-        itemElement.className = 'cart-item';
-        itemElement.innerHTML = `
-          <div class="item-info">
-            <div class="item-name">${item.name}</div>
-            <div class="item-price">${item.price} × ${item.quantity} = ₹${price * item.quantity}</div>
-          </div>
-          <div class="item-quantity">
-            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-            <span class="quantity">${item.quantity}</span>
-            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-            <button class="remove-item" onclick="removeFromCart(${item.id})">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-              </svg>
-            </button>
-          </div>
-        `;
-        cartItems.appendChild(itemElement);
-      });
-      
-      // Update total
-      cartTotal.textContent = `₹${calculateTotal()}`;
     }
 
-    // Generate WhatsApp message
-    function generateWhatsAppMessage() {
-      let message = "Hello! I would like to place an order:\n\n";
-      
-      cart.forEach(item => {
-        message += `${item.name} - ${item.quantity} x ${item.price}\n`;
-      });
-      
-      message += `\nTotal: ₹${calculateTotal()}\n\nThank you!`;
-      
-      return encodeURIComponent(message);
-    }
-
-    // Event listeners
-    cartButton.addEventListener('click', () => {
-      cartModal.classList.add('open');
-    });
-    
-    closeCart.addEventListener('click', () => {
-      cartModal.classList.remove('open');
-    });
-    
+    // Clear cart
     clearCart.addEventListener('click', () => {
       cart = [];
-      saveCart();
-      updateCartUI();
+      updateCart();
     });
-    
+
+    // WhatsApp order function
     whatsappOrder.addEventListener('click', () => {
       if (cart.length === 0) {
         alert('Your cart is empty!');
         return;
       }
       
-      const phoneNumber = "917775959122"; // Replace with your WhatsApp business number
-      const message = generateWhatsAppMessage();
-      window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-    });
-
-    // Close modal when clicking outside
-    cartModal.addEventListener('click', (e) => {
-      if (e.target === cartModal) {
-        cartModal.classList.remove('open');
+      const tableNumber = tableNumberInput.value.trim();
+      if (!tableNumber) {
+        alert('Please enter your table number');
+        return;
       }
+      
+      let message = `Hello! I would like to place an order from Table: ${tableNumber}:\n\n`;
+      
+      cart.forEach(item => {
+        message += `${item.name} - ${item.quantity} x ${item.price}\n`;
+      });
+      
+      const totalAmount = cart.reduce((sum, item) => {
+        const price = parseInt(item.price.replace('₹', ''));
+        return sum + (price * item.quantity);
+      }, 0);
+      
+      message += `\nTotal: ₹${totalAmount}\n\nThank you!`;
+      
+      // Encode the message for WhatsApp URL
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappURL = `https://wa.me/9284969878?text=${encodedMessage}`;
+      
+      // Open WhatsApp in a new tab
+      window.open(whatsappURL, '_blank');
     });
 
-    // Menu rendering functions
-    const menuGrid = document.getElementById('menuGrid');
-    const searchInput = document.getElementById('search');
-    const tabs = document.querySelectorAll('.tab');
-
-    function render(items){
-      menuGrid.innerHTML = items.map(i=>`
-        <article class="card" data-cat="${i.cat}">
-          <div class="thumb"><img src="${i.img}" alt="${i.name}"></div>
-          <div class="info">
-            <div style="display:flex;justify-content:space-between;align-items:start;gap:12px">
-              <div style="flex:1">
-                <h3 class="dish">${i.name}</h3>
-                <div class="desc">${i.desc}</div>
-              </div>
-              <div style="text-align:right">
-                <div class="price">${i.price}</div>
-                <div style="margin-top:8px">
-                  <button class="btn-primary" onclick="addItemToCartById(${i.id})">Add to Cart</button>
-                </div>
-              </div>
+    // Render menu items
+    function renderMenuItems(items) {
+      const menuGrid = document.getElementById('menuGrid');
+      
+      if (items.length === 0) {
+        menuGrid.innerHTML = '<p style="text-align:center;color:var(--muted);grid-column:1/-1;padding:40px 20px">No items found</p>';
+        return;
+      }
+      
+      menuGrid.innerHTML = items.map(item => `
+        <div class="card" data-cat="${item.cat}">
+          <div class="card-header">
+            <div class="thumb">
+              <img src="${item.img}" alt="${item.name}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiBmaWxsPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDMpIi8+CjxwYXRoIGQ9Ik03MCA4MEgxMTBNODAgNzBWOTBNNjUgOTVIMTA1TTk1IDY1VjEwNU02NSA2NVYxMDVNNzUgNzVIOThNNzUgODVIOThNNzUgOTVIOThNNzUgMTA1SDk4TTY1IDc1SDcyTTY1IDg1SDcyTTY1IDk1SDcyTTY1IDEwNUg3Mk0xMDggNzVIMTE1TTEwOCA4NUgxMTVNMTA4IDk1SDExNU0xMDggMTA1SDExNSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSkiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+'">
             </div>
-            <div class="meta-row">
-              <div class="tags">${i.tags.map(t=>`<span class="pill">${t}</span>`).join('')}</div>
+            <div class="card-info">
+              <h3 class="dish">${item.name}</h3>
+              <p class="desc">${item.desc}</p>
+              <div class="tags">
+                ${item.tags.map(tag => `<span class="pill">${tag}</span>`).join('')}
+              </div>
             </div>
           </div>
-        </article>
+          <div class="card-footer">
+            <div class="price">${item.price}</div>
+            <button class="btn-primary" onclick="addToCart(${JSON.stringify(item).replace(/"/g, '&quot;')}, this)">Add to Cart</button>
+          </div>
+        </div>
       `).join('');
     }
 
-    // Function to add item to cart by ID
-    function addItemToCartById(id){
-      const item = data.find(d => d.id === id);
-      if (item) {
-        addItemToCart(item);
+    // Filter menu items by category
+    function filterByCategory(category) {
+      if (category === 'all') {
+        renderMenuItems(data);
+      } else {
+        const filteredItems = data.filter(item => item.cat === category);
+        renderMenuItems(filteredItems);
       }
     }
 
-    // initial render
-    render(data);
-    initCart();
+    // Search functionality
+    function searchItems(query) {
+      const filteredItems = data.filter(item => 
+        item.name.toLowerCase().includes(query.toLowerCase()) || 
+        item.desc.toLowerCase().includes(query.toLowerCase()) ||
+        item.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+      );
+      renderMenuItems(filteredItems);
+    }
 
-    // search
-    searchInput.addEventListener('input', ()=>{
-      const q = searchInput.value.trim().toLowerCase();
-      const filtered = data.filter(d=> (d.name+ ' '+ d.desc + ' ' + d.tags.join(' ')).toLowerCase().includes(q) );
-      render(filtered);
+    // Initialize the menu
+    document.addEventListener('DOMContentLoaded', () => {
+      renderMenuItems(data);
+      
+      // Tab functionality
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          filterByCategory(tab.dataset.cat);
+        });
+      });
+      
+      // Search functionality
+      document.getElementById('search').addEventListener('input', (e) => {
+        searchItems(e.target.value);
+      });
     });
 
-    // tabs
-    tabs.forEach(t=>t.addEventListener('click', ()=>{
-      tabs.forEach(x=>x.classList.remove('active'));
-      t.classList.add('active');
-      const cat = t.getAttribute('data-cat');
-      if(cat==='all'){ render(data); return; }
-      render(data.filter(d=>d.cat===cat));
-    }));
+    // Make functions available globally
+    window.addToCart = addToCart;
+    window.removeFromCart = removeFromCart;
+    window.updateQuantity = updateQuantity;
   </script>
 </body>
-
-
 </html>
+
+
+
+
 
